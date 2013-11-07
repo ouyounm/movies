@@ -16,6 +16,7 @@ class MoviesController < ApplicationController
     @movie = Movie.new
     @movie.title = params[:title]
     @movie.year = params[:year]
+    @movie.rating = params[:rating]
 
     @movie.director_id = params[:director_id]
 
@@ -46,5 +47,9 @@ class MoviesController < ApplicationController
     @movie = Movie.find_by(:id => params[:id])
     @movie.destroy
     redirect_to movies_url
+  end
+
+  def average_rating
+     reviews.average(:rating)
   end
 end

@@ -1,4 +1,4 @@
-<h1>Movie #<%= @movie.id %></h1>
+<h1>Movie: <%= @movie.title %></h1>
 
 <p>
   <b>Title:</b>
@@ -6,9 +6,51 @@
 </p>
 
 <p>
-  <b>Year:</b>
+  <b>Year released:</b>
   <%= @movie.year %>
 </p>
 
 <% the_director = Director.find_by(id: @movie.director_id) %>
-<p>Directed By: <%= the_director.name %>, born <%= the_director.dob %></p>
+<p><b>Directed By:</b> <%= the_director.name %></p>
+
+<br>
+
+<h2>Add a Review:</h2>
+<%= form_for([@movie, @movie.reviews.build]) do |f| %>
+  <p>
+    <%= f.label :Name %><br />
+    <%= f.text_field :reviewer %>
+  </p>
+
+  <p>
+    <%= f.label :Review %><br />
+    <%= f.text_area :body %>
+  </p>
+
+  <p>
+    <%= f.label :Rating_out_of_10 %><br />
+    <%= f.number_field :rating %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+  <% end %>
+
+<h2 style = "color: #0066cc">Reviews:</h2>
+<% @movie.reviews.each do |review| %>
+  <p>
+    <strong>Name:</strong>
+    <%= review.reviewer %>
+  </p>
+
+  <p>
+    <strong>Review:</strong>
+    <%= review.body %>
+  </p>
+
+  <p>
+    <strong>Rating:</strong>
+    <%= review.rating %>
+  </p>
+<% end %>
